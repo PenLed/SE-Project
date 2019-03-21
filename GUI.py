@@ -2,7 +2,7 @@
 
 from tkinter import *
 import os
-
+import backend 
 # Designing window for registration
 
 def register():
@@ -61,7 +61,8 @@ def login():
     Label(login_screen, text="").pack()
     Button(login_screen, text="Login", width=10, height=1, command = login_verify).pack()
   
-# Keep me logged in 
+# Keep me logged in
+# Designing window for login success 
 # Implementing event on register button
 
 def register_user():
@@ -157,8 +158,8 @@ def main_account_screen():
     Button(text="Login", height="3", width="30", command = login).pack()
     Label(text="").pack()
     Button(text="Register", height="3", width="30", command=register).pack()
-
     main_screen.mainloop()
+
 
 
 main_account_screen()
