@@ -149,9 +149,6 @@ def delete_user_not_found_screen():
 def main_account_screen():
     global main_screen
     main_screen = Tk()
-    photo = PhotoImage(file = "learning.jpg")
-    w = Label(root, image=photo)
-    w.pack()
     main_screen.geometry("1200x900")
     main_screen.title("Account Login")
     main_screen.configure(background="white")
