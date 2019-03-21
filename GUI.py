@@ -151,7 +151,7 @@ def main_account_screen():
     main_screen.geometry("800x600")
     main_screen.title("Account Login")
     main_screen.configure(background="#181269")
-    Label(text="Welcome!", bg="#ABFCFF", width="300", height="2", font=("Calibri", 13)).pack()
+    Label(text="Welcome!", width="300", height="2", font=("Calibri", 13)).pack()
     Label(text="").pack()
     Button(text="Login", height="2", width="30", command = login).pack()
     Label(text="").pack()
