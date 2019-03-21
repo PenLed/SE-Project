@@ -18,7 +18,7 @@ def register():
     username = StringVar()
     password = StringVar()
 
-    Label(register_screen, text="Please insert new username and password", bg="#ABFCFF").pack()
+    Label(register_screen, text="Please insert new username and password", bg="white").pack()
     Label(register_screen, text="").pack()
     username_lable = Label(register_screen, text="Username * ")
     username_lable.pack()
@@ -29,7 +29,7 @@ def register():
     password_entry = Entry(register_screen, textvariable=password, show='*')
     password_entry.pack()
     Label(register_screen, text="").pack()
-    Button(register_screen, text="Register", width=10, height=1, bg="blue", command = register_user).pack()
+    Button(register_screen, text="Register", width=10, height=1, bg="white", command = register_user).pack()
 
 
 # Designing window for login 
@@ -38,8 +38,8 @@ def login():
     global login_screen
     login_screen = Toplevel(main_screen)
     login_screen.title("Login")
-    login_screen.geometry("300x250")
-    Label(login_screen, text="Please enter details below to login", bg="#ABFCFF").pack()
+    login_screen.geometry("600x400")
+    Label(login_screen, text="Please enter details below to login", bg="white").pack()
     Label(login_screen, text="").pack()
 
     global username_verify
@@ -60,7 +60,8 @@ def login():
     password_login_entry.pack()
     Label(login_screen, text="").pack()
     Button(login_screen, text="Login", width=10, height=1, command = login_verify).pack()
-
+  
+# Keep me logged in 
 # Implementing event on register button
 
 def register_user():
@@ -148,14 +149,14 @@ def delete_user_not_found_screen():
 def main_account_screen():
     global main_screen
     main_screen = Tk()
-    main_screen.geometry("800x600")
+    main_screen.geometry("1200x900")
     main_screen.title("Account Login")
-    main_screen.configure(background="#181269")
-    Label(text="Welcome!", width="300", height="2", font=("Calibri", 13)).pack()
+    main_screen.configure(background="white")
+    Label(text="Learning Management System", width="300", height="2", font=("Calibri", 20)).pack()
     Label(text="").pack()
-    Button(text="Login", height="2", width="30", command = login).pack()
+    Button(text="Login", height="3", width="30", command = login).pack()
     Label(text="").pack()
-    Button(text="Register", height="2", width="30", command=register).pack()
+    Button(text="Register", height="3", width="30", command=register).pack()
 
     main_screen.mainloop()
 
