@@ -152,12 +152,12 @@ def main_account_screen():
     main_screen = Tk()
     main_screen.geometry("1200x900")
     main_screen.title("Account Login")
-    main_screen.configure(background="white")
-    Label(text="Learning Management System", width="300", height="2", font=("Calibri", 20)).pack()
-    Label(text="").pack()
-    Button(text="Login", height="3", width="30", command = login).pack()
-    Label(text="").pack()
-    Button(text="Register", height="3", width="30", command=register).pack()
+  
+    Label(text="Learning Management System", font=("Arial", 30, "bold")).pack()
+  
+    Button(text="Login", command = login).place(x=300, y=200)
+   
+    Button(text="Register", command=register).place(x=300, y=250)
     main_screen.mainloop()
 
 
