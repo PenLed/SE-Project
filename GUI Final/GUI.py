@@ -4,20 +4,19 @@ from tkinter import ttk
 from PIL import ImageTk, Image 
 from tkinter import * 
 from backend import * 
+import os 
 
-TITLE = ("Arial", 40, "bold", "underline")
+TITLE = ("Arial", 40, "bold", )
 NORMAL_FONT = ("Arial", 20, "bold")
 SMALL_FONT = ("Arial", 12)
-BG = "light grey"
+BG = "white"
 FG = "black"
 
-# Defining our class Window
-# Inheritance in paranthesis, in this case from tk.Tk 
 class Window(tk.Tk):# 
     # Initialize everything below
     def __init__(self, *args, **kwargs):        
         tk.Tk.__init__(self, *args, **kwargs) 
-       	tk.Tk.iconbitmap(self, default="pencil.ico")
+       	tk.Tk.iconbitmap(self, "pencil.ico")
         tk.Tk.wm_title(self, "Learning Management System")
         tk.Tk.resizable(self, width=FALSE, height=FALSE)
         tk.Tk.geometry(self, "1280x720")
@@ -45,14 +44,13 @@ class Window(tk.Tk):#
         frame = self.frames[cont]
         frame.tkraise()
 
-def login_verify(): 
-    print("You did it!")
-        
+
 class LoginPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        # background=tk.PhotoImage("background.png")
+    
         tk.Frame.__init__(self,parent, bg=BG)
+    
         
         loginTitle = Label(self, text="WhiteBoard Learn", font=TITLE, bd=4, bg=BG, fg=FG)
         loginTitle.place(rely = .1, relx=.5, anchor="center")
@@ -60,17 +58,19 @@ class LoginPage(tk.Frame):
         usernameLabel = Label(self, text="USERNAME", font=NORMAL_FONT, bd=4, bg=BG, fg=FG)
         usernameLabel.place(rely = .40, relx=.37, anchor="center")
         
+
         usernameLabel = Label(self, text="PASSWORD", font=NORMAL_FONT, bd=4, bg=BG, fg=FG)
         usernameLabel.place(rely = .50, relx=.37, anchor="center")
         
-    
+        global usernameInput
         usernameInput = Entry(self, bd=4)
         usernameInput.place(rely = .40, relx=.55, anchor="center", width=200, height=30)
         
+        global passwordInput
         passwordInput = Entry(self, show="*", bd=4)
         passwordInput.place(rely = .50, relx=.55, anchor="center", width=200, height=30)
         
-        loginButton = Button(self, text="Login", font=SMALL_FONT, command=lambda:controller.show_frame(StudentPage))
+        loginButton = ttk.Button(self, text="Login", command=lambda:controller.show_frame(StudentPage))
         loginButton.place(rely=.57, relx=.58)
 
 class StudentPage(tk.Frame):
@@ -81,24 +81,30 @@ class StudentPage(tk.Frame):
         label.place(relx=.05, rely=.05)
         selected_class = StringVar()
         selected_class.set("Course")
-        class_menu = OptionMenu(self, selected_class, *class_id)
-        class_menu.config(height=2, width = 20)
-        class_menu.place(relx=.05, rely=.2)
 
-        tree = ttk.Treeview(self)
-        tree["columns"]=("one","two","three")
-        tree.column("#0", width=200, minwidth=200, stretch=tk.NO)
-        tree.column("one", width=200, minwidth=200, stretch=tk.NO)
-        tree.column("two", width=200, minwidth=200)
-        tree.column("three", width=200, minwidth=200, stretch=tk.NO)
+        tree = ttk.Treeview(self, columns = (1,2,3,4,5), height = 10, show = "headings")
+        tree.place(relx=0.3, rely=0.3)
 
-        tree.heading("#0",text="Exam 1",anchor=tk.W)
-        tree.heading("one", text="Exam 2",anchor=tk.W)
-        tree.heading("two", text="Exam 3",anchor=tk.W)
-        tree.heading("three", text="Final Exam",anchor=tk.W)
-        tree.place(relx=.2, rely=.25)
+        tree.heading(1, text="Class ID")
+        tree.heading(2, text="Exam 1")
+        tree.heading(3, text="Exam 2")
+        tree.heading(4, text="Exam 3")
+        tree.heading(5, text= "Final Exam")
 
-        
+        tree.column(1, width = 100)
+        tree.column(2, width = 100)
+        tree.column(3, width = 100)
+        tree.column(4, width = 100)
+        tree.column(5, width = 100)
+
+        scroll = ttk.Scrollbar(self, orient="vertical", command=tree.yview)
+        scroll.pack(side = 'right', fill = 'y')
+
+        tree.configure(yscrollcommand=scroll.set)
+
+        for val in exam_data:
+            tree.insert('', 'end', values = (val[0], val[1], val[2], val[3], val[4]))
+
 class AdminPage(tk.Frame):
 
     def __init__(self, parent, controller):
