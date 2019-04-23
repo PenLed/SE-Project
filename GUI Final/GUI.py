@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk 
 from PIL import ImageTk, Image 
 from tkinter import * 
-import backend
+from backend import * 
 
 TITLE = ("Arial", 40, "bold", "underline")
 NORMAL_FONT = ("Arial", 20, "bold")
@@ -78,8 +78,27 @@ class StudentPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg=BG)
         label = Label(self, text="My Courses", font=TITLE, bg=BG)
-        label.pack(pady=10,padx=10)
+        label.place(relx=.05, rely=.05)
+        selected_class = StringVar()
+        selected_class.set("Course")
+        class_menu = OptionMenu(self, selected_class, *class_id)
+        class_menu.config(height=2, width = 20)
+        class_menu.place(relx=.05, rely=.2)
 
+        tree = ttk.Treeview(self)
+        tree["columns"]=("one","two","three")
+        tree.column("#0", width=200, minwidth=200, stretch=tk.NO)
+        tree.column("one", width=200, minwidth=200, stretch=tk.NO)
+        tree.column("two", width=200, minwidth=200)
+        tree.column("three", width=200, minwidth=200, stretch=tk.NO)
+
+        tree.heading("#0",text="Exam 1",anchor=tk.W)
+        tree.heading("one", text="Exam 2",anchor=tk.W)
+        tree.heading("two", text="Exam 3",anchor=tk.W)
+        tree.heading("three", text="Final Exam",anchor=tk.W)
+        tree.place(relx=.2, rely=.25)
+
+        
 class AdminPage(tk.Frame):
 
     def __init__(self, parent, controller):

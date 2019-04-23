@@ -12,13 +12,18 @@ cursor = mydb.cursor()
 cursor.execute(sql_select_Query)
 grades = cursor.fetchall()
 class_id = []
-
+exam1 = []
+exam2 = []
+exam3 = []
+final_exam = []
 for row in grades: 
 	class_id.append(row[0])
-	print("Class: ", row[0])
-	print("Exam 1: ", row[1])
-	print("Exam 2: ", row[2])
-	print("Exam 3: ", row[3])	
-	print("Final Exam: ", row[4])
-	
+	exam1.append(row[1])
+	exam2.append(row[2])
+	exam3.append(row[3])
+	final_exam.append(row[4])
 print (class_id) 
+print (exam1)
+print (exam2) 
+print (exam3)
+print (final_exam)
