@@ -1,16 +1,16 @@
 
 import tkinter as tk
 from tkinter import ttk 
-from PIL import ImageTk, Image 
+from PIL import Image, ImageTk 
 from tkinter import * 
 from backend import * 
-import os 
+
 
 TITLE = ("Arial", 40, "bold", )
 NORMAL_FONT = ("Arial", 20, "bold")
-SMALL_FONT = ("Arial", 12)
-BG = "white"
+BG = "snow2"
 FG = "black"
+
 
 class Window(tk.Tk):# 
     # Initialize everything below
@@ -20,12 +20,12 @@ class Window(tk.Tk):#
         tk.Tk.wm_title(self, "Learning Management System")
         tk.Tk.resizable(self, width=FALSE, height=FALSE)
         tk.Tk.geometry(self, "1280x720")
-        # Container that we will populate
-        # Frame is basically a window 
+    
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
         container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)\
+
 
         self.frames = {}
 
@@ -44,24 +44,62 @@ class Window(tk.Tk):#
         frame = self.frames[cont]
         frame.tkraise()
 
+    def password_not_recognized(self):
+        global pass_error
+        pass_error = Toplevel()
+        pass_error.geometry("300x300")
+        Label(pass_error, text="Password not recognized").pack()
+        Button(pass_error, text="OK", command= self.delete_password_not_recognised).pack()
 
+    def user_not_found(self):
+        global user_not_found
+        user_not_found = Toplevel()
+        user_not_found.geometry("300x300")
+        Label(user_not_found, text="Username not found").pack()
+        Button(user_not_found, text="OK", command=self.delete_user_not_found_screen).pack()
+
+    def delete_password_not_recognised(self):
+        pass_error.destroy()
+
+    def delete_user_not_found_screen(self):
+        user_not_found.destroy()
+
+    def login_verify(self):
+        global username
+        global password
+        username = usernameInput.get()
+        password = passwordInput.get()
+            
+        if username in username_data:
+            if password in password_data:
+                self.show_frame(StudentPage)
+            else: 
+                self.pass_not_recognized()
+        else: 
+            self.user_not_found()
+            
 class LoginPage(tk.Frame):
 
     def __init__(self, parent, controller):
-    
-        tk.Frame.__init__(self,parent, bg=BG)
-    
         
-        loginTitle = Label(self, text="WhiteBoard Learn", font=TITLE, bd=4, bg=BG, fg=FG)
+        tk.Frame.__init__(self,parent, bg=BG)
+        image = PhotoImage(file='background.png')
+
+        loginTitle = Label(self, text="WhiteBoard Learn", font=TITLE, bd=4, bg=BG)
         loginTitle.place(rely = .1, relx=.5, anchor="center")
         
-        usernameLabel = Label(self, text="USERNAME", font=NORMAL_FONT, bd=4, bg=BG, fg=FG)
+        usernameLabel = Label(self, text="USERNAME", font=NORMAL_FONT, bd=4, bg=BG)
         usernameLabel.place(rely = .40, relx=.37, anchor="center")
         
 
-        usernameLabel = Label(self, text="PASSWORD", font=NORMAL_FONT, bd=4, bg=BG, fg=FG)
+        usernameLabel = Label(self, text="PASSWORD", font=NORMAL_FONT, bd=4, bg=BG)
         usernameLabel.place(rely = .50, relx=.37, anchor="center")
         
+        global username
+        global password
+        username = StringVar()
+        password = StringVar()
+
         global usernameInput
         usernameInput = Entry(self, bd=4)
         usernameInput.place(rely = .40, relx=.55, anchor="center", width=200, height=30)
@@ -70,7 +108,7 @@ class LoginPage(tk.Frame):
         passwordInput = Entry(self, show="*", bd=4)
         passwordInput.place(rely = .50, relx=.55, anchor="center", width=200, height=30)
         
-        loginButton = ttk.Button(self, text="Login", command=lambda:controller.show_frame(StudentPage))
+        loginButton = ttk.Button(self, text="Login", command=controller.login_verify)
         loginButton.place(rely=.57, relx=.58)
 
 class StudentPage(tk.Frame):
@@ -79,11 +117,11 @@ class StudentPage(tk.Frame):
         tk.Frame.__init__(self, parent, bg=BG)
         label = Label(self, text="My Courses", font=TITLE, bg=BG)
         label.place(relx=.05, rely=.05)
-        selected_class = StringVar()
-        selected_class.set("Course")
+        label
 
-        tree = ttk.Treeview(self, columns = (1,2,3,4,5), height = 10, show = "headings")
-        tree.place(relx=0.3, rely=0.3)
+
+        tree = ttk.Treeview(self, columns = (1,2,3,4,5), height = 20, show = "headings")
+        tree.place(relx=0.3, rely=0.2)
 
         tree.heading(1, text="Class ID")
         tree.heading(2, text="Exam 1")
@@ -113,7 +151,6 @@ class AdminPage(tk.Frame):
         label.pack(pady=10,padx=10)
 
 app = Window()
-
 app.mainloop()
 
   
