@@ -39,7 +39,7 @@ for row in grades:
 	student_list.append(row[4])
 	exam_data.append(student_list)
 
-#-----------------------------------USERNANES-------------------------------
+#-----------------------------------USERNAMES-------------------------------
 #SQL STATMENTS
 sql_select_Query = "SELECT student_username FROM student_login"
 cursor = mydb.cursor()
@@ -74,4 +74,25 @@ for row in student_info:
 	students.append(row[1])
 	student_data.append(students)
 
-print(student_data)
+#--------------------------------ADMIN USERNAMES-------------------------------
+#SQL STATMENTS
+sql_select_Query = "SELECT admin_username FROM admin_login"
+cursor = mydb.cursor()
+cursor.execute(sql_select_Query)
+usernames = cursor.fetchall()
+#LIST
+admin_username_data =[]
+for row in usernames:
+	admin_username_data.append(row[0])
+#---------------------------------ADMIN PASWORDS---------------------------------
+#SQL STATMENTS
+sql_select_Query = "SELECT admin_password FROM admin_login"
+cursor = mydb.cursor()
+cursor.execute(sql_select_Query)
+admin_passwords = cursor.fetchall()
+#LIST
+admin_password_data =[]
+for row in admin_passwords:
+	admin_password_data.append(row[0])
+
+print(grades) 
